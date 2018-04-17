@@ -4,6 +4,10 @@
 Modify each function until the tests pass.
 """
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
 
 def loop_ranger(start, stop=None, step=1):
@@ -35,7 +39,11 @@ def two_step_ranger(start, stop):
     Sometimes you want to hide complexity.
     Make a range function that always has a step size of 2
     """
+<<<<<<< HEAD
     return list(range(start,stop,2))
+=======
+    pass
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
 
 def stubborn_asker(low, high):

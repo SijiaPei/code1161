@@ -5,6 +5,12 @@ Go through it and change it until it runs.
 """
 import string
 
+<<<<<<< HEAD
+=======
+det getLetter(index):
+    alphabet = string.ascii_lowercase + " "
+    return alphabet[index]
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
 def getLetter(index):
     alphabet = string.ascii_lowercase + " "
@@ -16,9 +22,21 @@ def week2exersise2():
     for index in indices:
         wordArray.append(getLetter(index))
 
+<<<<<<< HEAD
     wordArray[0] = wordArray[0].upper()
     wordArray[1] = wordArray[1].upper()
     wordArray[3] = wordArray[3].upper()
+=======
+def week2exersise2();
+    indices = [12: 2, 26, 7, 0, 12, 12, 4, 17]
+    wordArray = {}  # hint: should this be a dictionary?
+    for index in indices:
+        wordArray.append[getLetter(index)]
+
+    wordArray(0) = wordArray[0].upper()
+    wordArray{1} = wordArray[1].upper()
+    wordArray[3} = wordArray[3].upper{}
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
     secret_word="".join(wordArray)
     print(secret_word)
     return secret_word

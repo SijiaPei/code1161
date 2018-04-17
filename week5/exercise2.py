@@ -3,6 +3,12 @@
 
 Exercises and examples to illustrate recursion.
 """
+<<<<<<< HEAD
+=======
+
+
+import turtle
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
 
 import turtle
@@ -89,9 +95,13 @@ def abba(source="abba", guard=3):
     aob aob bba bba oa aob bba oa aob aob aob bba
                 and so on...
     """
-    def apply_rules(letter):
+    def apply_rules(letter, guard):
         """Control the substitution.
         You need to change these substitutions to make it work.
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
         Hint: when guard == -1 return the letter.
         """
         if letter == "a":

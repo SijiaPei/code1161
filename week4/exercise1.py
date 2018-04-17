@@ -1,6 +1,10 @@
 """All about IO."""
 
+<<<<<<< HEAD
 import time
+=======
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 import json
 import os
 import requests
@@ -17,6 +21,10 @@ if LOCAL != CWD:
     print("CWD", CWD)
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 def get_some_details():
     """Parse some JSON.
 
@@ -172,4 +180,7 @@ if __name__ == "__main__":
             print(e)
     if not os.path.isfile("lasers.pew"):
         print('diarist did not create lasers.pew')
+<<<<<<< HEAD
  
+=======
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3

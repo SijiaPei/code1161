@@ -4,6 +4,11 @@ Steps on the way to making your own guessing game.
 """
 
 
+<<<<<<< HEAD
+=======
+from exercise1 import not_number_rejector
+from exercise1 import super_asker
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 import random
 
 import os

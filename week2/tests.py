@@ -5,9 +5,15 @@ This file tests your code. It'll check that the work in each
 of the exercise files does what it's supposed to.
 """
 
+<<<<<<< HEAD
 
 # TODO replace flake8 with yapf or calm flake8 down
 
+=======
+# TODO replace flake8 with yapf or calm flake8 down
+
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 import imp
 import os
 import sys
@@ -52,8 +58,12 @@ def ex3runs(path):
         return False
 
 def lab_book_entry_completed():
+<<<<<<< HEAD
     print(os.path.dirname(__file__))
     lab_book = Path("readme.md")
+=======
+    lab_book = Path("week2/readme.md")
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
     if lab_book.is_file():
         with open(lab_book, 'r') as f:
             lines = f.readlines()
@@ -130,17 +140,29 @@ def theTests(path_to_code_to_check="."):
             test(exercise0.shout_with_a_number("hi", 1) == "HI 1",
                  "Exercise 0: shout_with_a_number - hi, 1 => HI 1?"))
 
+<<<<<<< HEAD
     path = "{}/week{}/exercise1.py".format(path_to_code_to_check, WEEK_NUMBER)
 
 
     path = "{}/week{}/exercise2.py".format(path_to_code_to_check, WEEK_NUMBER)
 
+=======
+    path = "exercise1.py".format(path_to_code_to_check, WEEK_NUMBER)
+
+
+    path = "exercise2.py".format(path_to_code_to_check, WEEK_NUMBER)
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
     testResults.append(
         test(ex2runs(path_to_code_to_check),
              "Exercise 2: debug the file"))
 
+<<<<<<< HEAD
     path = "exercise3.py"
+=======
+    path = "exercise3.py".format(path_to_code_to_check, WEEK_NUMBER)
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
 
     if ex3runs(path_to_code_to_check):

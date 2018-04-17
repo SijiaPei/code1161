@@ -27,9 +27,14 @@ def binary_search(low, high, actual_number):
       (You should remove them from the file, not comment them out, the
       tests aren't that smart yet.)
     """
+<<<<<<< HEAD
     tries = 1
     guess = actual_number
 
+=======
+
+    return {"guess": guess, "tries": tries}
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
     if ((guess<low) or (guess>high)):
       return { }

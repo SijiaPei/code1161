@@ -3,6 +3,10 @@
 An example of how a guessing game might be written.
 """
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 import random
 
 

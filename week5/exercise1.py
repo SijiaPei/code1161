@@ -3,7 +3,10 @@ import math
 import requests
 """Refactoring.
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 This exercise contains a complete and working example, but it's very poorly written.
 
 Your job is to go through it and make it as good as you can.
@@ -30,10 +33,22 @@ def do_bunch_of_bad_things():
     print("side lengths are:")
     print("base: {}".format(triangle["base"]))
     print("height: {}".format(triangle["height"]))
+<<<<<<< HEAD
     print("hypotenuse: {}".format(calculate_hypotenuse(triangle["base"],triangle["height"])))
     print("hypotenuse: {}".format(calculate_hypotenuse(5,6)))
     print("hypotenuse: {}".format(calculate_hypotenuse(40,30)))
     
+=======
+    print("hypotenuse: {}".format(triangle["hypotenuse"]))
+
+    another_hyp = 5**2 + 6**2
+    print(another_hyp)
+
+    yet_another_hyp = 40**2 + 30**2
+    print(yet_another_hyp)
+
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 # return a list of countdown messages, much like in the bad function above.
 # It should say something different in the last message.
 def countdown(message, start, stop, completion_message):
@@ -167,10 +182,28 @@ def triangle_master(base,
 
 
 def wordy_pyramid():
+<<<<<<< HEAD
     pyramid_list = []
     pyramid_list = list_of_words_with_lengths(range(3,21,2))
     pyramid_list += list_of_words_with_lengths(range(20,3,-2))
     return pyramid_list 
+=======
+    import requests
+    baseURL = "http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength={0}&maxLength={0}&limit=1"
+    pyramid_list = []
+    for i in range(3, 21, 2):
+        url = baseURL.format(i)
+        r = requests.get(url)
+        message = r.json()[0]['word']
+        pyramid_list.append(message)
+    for i in range(20, 3, -2):
+        url = baseURL.format(str(i))
+        r = requests.get(url)
+        message = r.json()[0]['word']
+        pyramid_list.append(message)
+    return pyramid_list
+
+>>>>>>> a0fec480311b6bb045bdb79ae1c35177118a8ce3
 
 def get_a_word_of_length_n(length):
     try:
