@@ -17,7 +17,7 @@ def greet(name="Towering Timmy"):
     return a string of "Hello" and the name argument.
     E.g. if given as "Towering Timmy" it should return "Hello Towering Timmy"
     """
-    pass
+    return "Hello "+name
 
 
 def three_counter(input_list=[1, 4, 3, 5, 7, 1, 3, 2, 3, 3, 5, 3, 7]):
@@ -26,8 +26,11 @@ def three_counter(input_list=[1, 4, 3, 5, 7, 1, 3, 2, 3, 3, 5, 3, 7]):
     Return an integer.
     TIP: the test will use a different input_list, so don't just return 5
     """
-    pass
-
+    count=0
+    for x in input_list:
+        if (x==3):
+            count +=1
+    return count
 
 def fizz_buzz():
     """Do the fizzBuzz.
@@ -45,8 +48,16 @@ def fizz_buzz():
     """
     fizzBuzzList = []
     # your code here
+    for x in range(1,101):
+        if(x%3==0):
+            fizzBuzzList.append("Fizz")
+        elif(x%5==0):
+            fizzBuzzList.append("Buzz")
+        elif(x%15==0):
+            fizzBuzzList.append("FizzBuzz")
+        else:
+            fizzBuzzList.append(x)
     return fizzBuzzList
-
 
 def put_behind_bars(input_string="very naughty boy"):
     """Interleave the input_string with pipes.
@@ -57,7 +68,9 @@ def put_behind_bars(input_string="very naughty boy"):
     TIP: conside using the 'join' method in Python.
     TIP: make sure that you have a pipe on both ends of the string.
     """
-    pass
+    str1="|"
+    str2=str1+str1.join(input_string)+str1
+    return str2
 
 
 def pet_filter(letter="a"):
@@ -70,7 +83,11 @@ def pet_filter(letter="a"):
             "bali cattle", "gayal", "turkey", "goldfish", "rabbit", "koi",
             "canary", "society finch", "fancy mouse", "siamese fighting fish",
             "fancy rat and lab rat", "mink", "red fox", "hedgehog", "guppy"]
-    pass
+    returnlist=[]
+    for x in pets:
+        if( x.find(letter) >=0 ):
+            returnlist.append(x)
+    return returnlist
 
 
 def best_letter_for_pets():
@@ -81,8 +98,16 @@ def best_letter_for_pets():
     """
     import string
     the_alphabet = string.ascii_lowercase
-    pass
-
+    maxLen = 0
+    maxLetter = ""
+    for x in the_alphabet:
+        currlen = len(pet_filter(x))
+        if (currlen > maxLen):
+            maxLen = currlen
+            maxLetter = x
+    print("maxlen="+str(maxLen)+ " letter is="+maxLetter)
+    return maxLetter
+  
 
 def make_filler_text_dictionary():
     """Make a dictionary of random words filler text.
@@ -113,7 +138,17 @@ def make_filler_text_dictionary():
     """
     
     import requests
-    return
+    url = "http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength={0}&maxLength={0}&limit=1"
+    dict1 = {}
+    for x in range(3,8):
+        url1 = url.format(x)
+        wordList=[]
+        for y in range(1,4):
+            r = requests.get( url1 )
+            data = r.json()
+            wordList.append( data[0]["word"] )
+        dict1[x]=wordList
+    return dict1
 
 
 def random_filler_text(number_of_words=200):
@@ -128,8 +163,14 @@ def random_filler_text(number_of_words=200):
         see line 77 of week4/hangman_leadboard.py for an example.
     """
     import random
-    pass
-
+    str3 =""
+    dict1 = make_filler_text_dictionary()
+    for x in range(0,number_of_words):
+        dictIndex = random.randint(3,7)
+        wordlist = dict1[dictIndex]
+        str3 = str3 + wordlist[random.randint(0,len(wordlist)-1)]+" "
+    return str3
+   
 
 def fast_filler(number_of_words=200):
     """Reimplement random_filler_text.
@@ -144,8 +185,31 @@ def fast_filler(number_of_words=200):
     into and out of the file. Be careful when you read it back in, it'll
     convert integer keys to strings.
     """
-    pass
-
+    import os
+    import random
+    import json
+    flag = 0
+    str1 = ""
+    CWD = os.getcwd()
+    filename = "dict_racey.words"
+    if  os.path.isfile(CWD+"\\"+"dict_racey.words"):
+        json_data = open( filename, "r" ).read()
+        dict1 = json.loads( json_data )
+        flag = 1
+    else:
+        dict2 = make_filler_text_dictionary()
+        f = open(filename,"w")
+        json.dump(dict1,f)
+        f.close()
+    
+    for x in range(0,number_of_words):
+        dictIndex = random.randint(3,7)
+    if flag==0 :
+        wordlist = dict1[dictIndex]
+    else:
+        wordlist = dict1[str(dictIndex)]
+        str1 = str1 + wordlist[random.randint(0,len(wordlist)-1)]+" "
+    return str1
 
 if __name__ == '__main__':
     print((greet()))
