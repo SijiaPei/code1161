@@ -1,9 +1,11 @@
 """All about IO."""
-from __future__ import division
-from __future__ import print_function
+
+import time
 import json
 import os
 import requests
+import inspect
+import sys
 
 # Handy constants
 LOCAL = os.path.dirname(os.path.realpath(__file__))  # the context of this file
@@ -13,22 +15,6 @@ if LOCAL != CWD:
     print("relative to where you think they are")
     print("LOCAL", LOCAL)
     print("CWD", CWD)
-
-
-def success_is_relative():
-    """Read from a file.
-
-    Read the success message from week 1, but from here, using a relative path.
-    TIP: remember that it's relative to your excecution context, not this file.
-         The tests are run from the code1161base directory, that's the
-         excecution context for this test.
-    TIP: check that there ins't unwanted whitespace or line endings in the
-         response. Look into .strip() and see what it does.
-    """
-    # this depends on excecution context. Take a look at your CWD and remember
-    # that it changes.
-    # print(path, CWD)
-    pass
 
 
 def get_some_details():
@@ -50,17 +36,27 @@ def get_some_details():
     json_data = open(LOCAL + "/lazyduck.json").read()
 
     data = json.loads(json_data)
-    return {"lastName":       None,
-            "password":       None,
-            "postcodePlusID": None
+    
+    lastName = data["results"][0]["name"]["last"]
+    passWord = data["results"][0]["login"]["password"]
+    postCode = data["results"][0]["location"]["postcode"]
+    idValue  = data["results"][0]["id"]["value"]
+    postcodePlusID = int(postCode)+int(idValue)
+    return {"lastName":    lastName,
+            "password":    passWord,
+            "postcodePlusID":postcodePlusID
             }
+
 
 
 def wordy_pyramid():
     """Make a pyramid out of real words.
 
-    There is a random word generator here: http://www.setgetgo.com/randomword/
-    The only argument that the generator takes is the length of the word.
+    There is a random word generator here:
+    http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength=10&maxLength=10&limit=1
+    The arguments that the generator takes is the minLength and maxLength of the word
+    as well as the limit, which is the the number of words. 
+    Visit the above link as an example.
     Use this and the requests library to make a word pyramid. The shortest
     words they have are 3 letters long and the longest are 20. The pyramid
     should step up by 2 letters at a time.
@@ -86,11 +82,34 @@ def wordy_pyramid():
     "Nereis",
     "Leto",
     ]
-    TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
+    TIP: to add an argument to a URL, use: ?argName=argVal e.g. &minLength=
     """
-    pass
+    minLen1 = 3
+    minLen2 = 4
+    step = 2
+    currLen = minLen1
+    maxLen = 20
+    returnList = []
+    while (currLen<=20):
+        url="http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength="+str(currLen)+"&maxLength="+str(currLen)+"&limit=1"
+        r=requests.get(url)
+        if r.status_code is 200:
+            data = json.loads(r.text)
+            returnList.append(data[0]["word"])
+        currLen = currLen +2
+        time.sleep(1)
 
-
+    currLen=20
+    while(currLen>=4):
+        url="http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength="+str(currLen)+"&maxLength="+str(currLen)+"&limit=1"
+        r=requests.get(url)
+        if r.status_code is 200:
+            data = json.loads(r.text)
+            returnList.append(data[0]["word"])
+        currLen = currLen-2
+        time.sleep(1)
+    return returnList
+        
 def wunderground():
     """Find the weather station for Sydney.
 
@@ -103,7 +122,7 @@ def wunderground():
          variable and then future access will be easier.
     """
     base = "http://api.wunderground.com/api/"
-    api_key = "YOUR KEY - REGISTER TO GET ONE"
+    api_key = "1ea1c9a1e77d9bb5"
     country = "AU"
     city = "Sydney"
     template = "{base}/{key}/conditions/q/{country}/{city}.json"
@@ -111,11 +130,11 @@ def wunderground():
     r = requests.get(url)
     the_json = json.loads(r.text)
     obs = the_json['current_observation']
-
-    return {"state":           None,
-            "latitude":        None,
-            "longitude":       None,
-            "local_tz_offset": None}
+    info =obs["display_location"]
+    return {"state":           info["state"],
+            "latitude":        info["latitude"],
+            "longitude":       info["longitude"],
+            "local_tz_offset":obs["local_tz_offset"]}
 
 
 def diarist():
@@ -123,7 +142,7 @@ def diarist():
 
     Read in Trispokedovetiles(laser).gcode and count the number of times the
     laser is turned on and off. That's the command "M10 P1".
-    Write the answer (a number) to a file called 'lasers.pew'
+    Write the answer (a number) to a file called 'lasers.pew' in the week4 directory.
     TIP: you need to write a string, so you'll need to cast your number
     TIP: Trispokedovetiles(laser).gcode uses windows style line endings. CRLF
          not just LF like unix does now. If your comparison is failing this
@@ -131,11 +150,26 @@ def diarist():
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
          the test will have nothing to look at.
     """
-    pass
+    count=0
+    file = open("Trispokedovetiles(laser).gcode","r")
+    data = file.readlines()
+    for x in data:
+        if(x.find("M10 P1")>=0):
+            count = count +1
+    file.close()
 
+    file = open("lasers.pew","w")
+    file.write(str(count))
+    file.close()
+    
 
 if __name__ == "__main__":
-    print([len(w) for w in wordy_pyramid()])
-    print(get_some_details())
-    print(wunderground())
-    print(diarist())
+    functions = [obj for name,obj in inspect.getmembers(sys.modules[__name__]) if (inspect.isfunction(obj))]
+    for function in functions:
+        try:
+            print(function())
+        except Exception as e:
+            print(e)
+    if not os.path.isfile("lasers.pew"):
+        print('diarist did not create lasers.pew')
+ 

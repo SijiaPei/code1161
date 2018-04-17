@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 """Week 3, Exercise 4."""
-from __future__ import division
-from __future__ import print_function
+
+
 import math
 # import time
 
@@ -27,8 +27,27 @@ def binary_search(low, high, actual_number):
       (You should remove them from the file, not comment them out, the
       tests aren't that smart yet.)
     """
-    return {"guess": guess, "tries": tries}
+    tries = 1
+    guess = actual_number
 
+
+    if ((guess<low) or (guess>high)):
+      return { }
+    start = low
+    end = high
+    while(start<=end):
+      mid = int( (start+end)/2 )
+      if ((guess==mid) or (guess==start) or (guess==end)):
+        print("got it[{}] by [{}] times".format(guess,tries))
+        return {"guess": guess, "tries": tries}
+      elif ( guess < mid ):
+        end   = mid-1
+        start =start+1
+      else:
+        start = mid+1
+        end = end-1
+      tries = tries+1
+    return { }
 
 if __name__ == "__main__":
     print(binary_search(1, 100, 5))

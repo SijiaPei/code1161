@@ -3,13 +3,12 @@
 
 Exercises and examples to illustrate recursion.
 """
-from __future__ import division
-from __future__ import print_function
+
+
 import turtle
 
-
 def italian_dinner(axiom="tomatoes", guard=6):
-    u"""Make recursive dinner plans.
+    """Make recursive dinner plans.
 
     This is an example to help you get your head around the idea of recursion.
 
@@ -33,13 +32,13 @@ def italian_dinner(axiom="tomatoes", guard=6):
             part of the formal system into any other using replacement rules.
     In the itallian dinner, teh axiom is of course _tomatoes_
 
-    Note that in order for this to work, we need to habe at least one word in
+    Note that in order for this to work, we need to have at least one word in
     the right-hand side that matches one of the words in the left-hand side.
     If we do not do this then the production system will not catch, and it will
     fail to expand into the florid ingredients list.
 
     From Paul Coates, Programming.Architecture
-    I would strongly recomend reading this book!
+    I would strongly recommend reading this book!
 
     referencing: DOUGLAS R. HOFSTADTER, Metamagical Themas
     https://archive.org/stream/MetamagicalThemas/Metamagical%20Themas,%20Hofstadter_djvu.txt
@@ -53,14 +52,13 @@ def italian_dinner(axiom="tomatoes", guard=6):
     Here's a photo of the page: https://goo.gl/photos/bEh8dmkYkeAy7W727
     """
     parts = axiom.split(" ")
-    result = map(italian_rules, parts)
+    result = list(map(italian_rules, parts))
     new_string = " ".join(result)
     guard -= 1
     if guard > 0:
         return italian_dinner(new_string, guard)
     else:
         return new_string
-
 
 def italian_rules(word):
     """Substitution rules to make Italian recipes."""
@@ -86,27 +84,35 @@ def abba(source="abba", guard=3):
 
                    abba
                     to
-               bbaaobaobbba
+               bba aob aob bba
                     to
-    aobaobbbabbaoaaobbbaoaaobaobaobbba
+    aob aob bba bba oa aob bba oa aob aob aob bba
                 and so on...
     """
     def apply_rules(letter):
         """Control the substitution.
-
         You need to change these substitutions to make it work.
+        Hint: when guard == -1 return the letter.
         """
         if letter == "a":
-            return "a"
+            return "bba"
         elif letter == "b":
-            return "b"
+            return "aob"
         elif letter == "o":
-            return "o"
+            return "oa"
         else:
             return letter
 
     # write the rest of the function here
-    pass
+    str1 = ""
+    for x in source:
+       bbbbb=apply_rules(x)
+       str1=str1 + bbbbb
+    guard -= 1
+    if guard > 0:
+        return abba(str1,guard)
+    else:
+        return str1
 
 
 def koch(t, order, size):
@@ -124,12 +130,11 @@ def koch(t, order, size):
         trace += koch(t, order-1, size/3)
     return str(order) + trace
 
-
 def draw_koch(drawing_method, steps_deep=4):
     """Open a tk window and show the turtle drawing the koch curve.
 
     Docs for python turtles here.
-    https://docs.python.org/2/library/turtle.html
+    https://docs.python.org/3/library/turtle.html
     """
     raphael = turtle.Turtle()
     raphael.speed(1000)
@@ -142,7 +147,6 @@ def draw_koch(drawing_method, steps_deep=4):
 
 def square_koch(t, order, size):
     r"""Draw a koch curve with a square rather than a triangular point.
-
            _
     e.g. _| |_ rather than _/\_
 
@@ -151,8 +155,20 @@ def square_koch(t, order, size):
     """
     trace = ""
     # write the rest of the function here.
+    if order == 0:          # The base case is just a straight line
+        t.forward(size)
+    else:
+        trace += square_koch(t, order-1, size/3)   # Go 1/3 of the way
+        t.left(90)
+        trace +=square_koch(t, order-1, size/3)
+        t.right(90)
+        trace +=square_koch(t, order-1, size/3)
+        t.right(90)
+        trace +=square_koch(t, order-1, size/3)
+        t.left(90)
+        trace +=square_koch(t, order-1, size/3)
     return str(order) + trace
-    pass
+    
 
 
 def draw_square(steps=4):
@@ -171,5 +187,4 @@ if __name__ == '__main__':
     print(draw_koch(drawing_method=square_koch, steps_deep=4))
     print(draw_koch(drawing_method=koch, steps_deep=2))
     print("AB:", abba())
-    print("ID:", str(italian_dinner()))
-    pass
+    print("ID:", str(italian_dinner("tomatoes",2)))

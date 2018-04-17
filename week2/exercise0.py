@@ -1,10 +1,9 @@
 # -*- coding: UTF-8 -*-
 """Modify each function until the tests pass."""
-from __future__ import division
-from __future__ import print_function
 
 
 def add_5(a_number):
+    return a_number+5
     """Return a number that is 5 bigger than number given.
 
     This isn't a trick!
@@ -15,18 +14,24 @@ def add_5(a_number):
         return a_number plus five
     except expressed in python, not english
     """
-    pass
 
+ 
 
 def adder(a_number, another_number):
+    return a_number+another_number
     """Add two numbers.
 
     Same as above, but with any two numbers.
     """
-    pass
+    
 
 
 def shout(a_string):
+# string is a word 
+# 78 is a number
+# seventy eight is a word
+# python,word =string
+
     """Return a string in uppercase.
 
     look up the docs for string methods. Either in the official docs, here:
@@ -34,17 +39,32 @@ def shout(a_string):
     or in any of the million places that google will give you.
     "python make a string uppercase" is a good starting search query.
     """
-    pass
+    return a_string.upper()
+    #a_string is input
+    #.upper()is order
+
 
 
 def really_shout(a_string):
+    return a_string.upper()+"!"
     """Return a string in uppercase, with an exclamation mark on the end.
 
     In the spirit of being DRY (don't repeat yourself) reuse the shout function
     from above.
     Look up how to 'concatinate' strings to make this happen.
     """
-    pass
+   
+
+def shout_with_a_number(a_string, a_number):
+    return a_string.upper()+" "+str(a_number)
+    """Return a string in uppercase with a space and a_number concatentated.
+    E.g.
+     shout_with_a_number('hello', 42)
+    'HELLO 42'
+
+    HINT: Lookup how to cast a_number to a string or lookup how to use f-strings in python
+    """
+
 
 
 def minitest(f, args, expected):
@@ -61,6 +81,7 @@ def minitest(f, args, expected):
     return result == expected
 
 
+
 if __name__ == "__main__":
     minitest(add_5, [1], 6)
     minitest(add_5, [6], 11)
@@ -73,6 +94,7 @@ if __name__ == "__main__":
     minitest(really_shout, ["hello"], "HELLO!")
     minitest(really_shout, [""], "!")
     minitest(really_shout, ["!"], "!!")
+    minitest(shout_with_a_number, ('hello', 42), "HELLO 42")
     print("""
           This section does a quick test on your results and prints them nicely
           It's NOT the official tests, they are in tests.py as usual.

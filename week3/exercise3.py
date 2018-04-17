@@ -2,12 +2,15 @@
 
 Steps on the way to making your own guessing game.
 """
-from __future__ import division
-from __future__ import print_function
-from exercise1 import not_number_rejector
-from exercise1 import super_asker
+
+
 import random
 
+import os
+import sys
+print(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from week3.exercise1 import not_number_rejector
 
 def advancedGuessingGame():
     """Play a guessing game with a user.
@@ -28,6 +31,40 @@ def advancedGuessingGame():
     Remember to think modular. Try to keep your functions small and single
     purpose if you can!
     """
+    print("\nwelcome to the guessing game!")
+    print("A number between _? and _ ?")
+    lowerBound = not_number_rejector("Enter an lower bound: ")
+
+    flag = False
+    while not flag:
+        upperBound = not_number_rejector("Enter an upper bound: ")
+        if (upperBound>=lowerBound):
+          flag = True
+        else:
+          print("the upperBound is less than lowerBound")
+
+    print("OK then, a number between {} and {} ?".format(lowerBound,upperBound))
+
+    actualNumber = random.randint(lowerBound, upperBound)
+
+    guessed = False
+
+    xstr = ""
+    while not guessed:
+      try:
+        xstr = input("guess a number: ")
+        guessedNumber = int(xstr)
+        print("you guessed {},".format(guessedNumber),)
+        if (guessedNumber == actualNumber):
+            print("you got it!! It was {}".format(actualNumber))
+            guessed = True
+        elif guessedNumber < actualNumber:
+            print("too small, try again ")
+        else:
+            print("too big, try again   ")
+      except Exception:
+        print("you entered {} is not a number".format(xstr))
+
     return "You got it!"
 
 
